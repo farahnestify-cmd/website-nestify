@@ -14,7 +14,8 @@ Open `index.html` directly, or serve the folder (`npx serve .`).
 
 ## Design system
 - **Palette:** monochrome — white `#ffffff`, paper `#f6f6f6`, a scale of grays, and black `#111111`. All live as CSS custom properties in `:root`.
-- **Type:** Inter. Headings pair a light weight with a bold accent word (e.g. "nestify **products.**").
+- **Type:** Jost (light, lowercase) for headings and Inter for body text. Headings are two-tone: black plus a gray second phrase ("nestify products.").
+- **Style:** architectural and gallery-like. Square corners (radius tokens are `0`), rectangular uppercase buttons, dark showroom sections (hero, experience, CTA, footer, product heroes) alternating with white and light gray.
 - **Motion:** one easing curve (`--ease`), staggered reveal-on-scroll via `--d`. Everything respects `prefers-reduced-motion`.
 - **Breakpoints:** 1080px (tablet), 860px, 640px (mobile), 380px.
 
