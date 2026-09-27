@@ -107,27 +107,40 @@
 
   const dial = $("[data-dial]");
   const tempEl = $("[data-temp]");
-  const MIN = 16;
-  const MAX = 30;
-  let temp = Number(tempEl.textContent);
+  if (dial && tempEl) {
+    const MIN = 16;
+    const MAX = 30;
+    let temp = Number(tempEl.textContent);
 
-  const renderTemp = () => {
-    tempEl.textContent = temp;
-    dial.style.setProperty("--p", ((temp - MIN) / (MAX - MIN)).toFixed(3));
-  };
-  $$("[data-temp-step]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      temp = Math.min(MAX, Math.max(MIN, temp + Number(btn.dataset.tempStep)));
-      renderTemp();
+    const renderTemp = () => {
+      tempEl.textContent = temp;
+      dial.style.setProperty("--p", ((temp - MIN) / (MAX - MIN)).toFixed(3));
+    };
+    $$("[data-temp-step]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        temp = Math.min(MAX, Math.max(MIN, temp + Number(btn.dataset.tempStep)));
+        renderTemp();
+      });
     });
-  });
-  renderTemp();
+    renderTemp();
+  }
 
   /* Contact form — composes an email to the sales team */
   const form = $("[data-contact-form]");
   const note = $("[data-form-note]");
 
-  form.addEventListener("submit", (e) => {
+  /* Arriving from a product page (?product=…) pre-fills the request */
+  const PRODUCTS = {
+    "smart-switches": "Smart switches",
+    "smart-door-locks": "Smart door locks",
+    "smart-panels": "Smart panels",
+  };
+  const product = PRODUCTS[new URLSearchParams(window.location.search).get("product")];
+  if (form && product && !form.elements.message.value) {
+    form.elements.message.value = `I'm interested in: ${product}\n\n`;
+  }
+
+  if (form) form.addEventListener("submit", (e) => {
     e.preventDefault();
     const data = new FormData(form);
     const name = String(data.get("name") || "").trim();

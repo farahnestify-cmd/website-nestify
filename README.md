@@ -3,20 +3,24 @@
 Static, dependency-free redesign of [nestify.ps](https://nestify.ps/).
 
 ```
-index.html        page markup (semantic sections: hero, about, solutions, experience, process, contact)
+index.html        home page (hero, about, products, solutions, experience, process, contact)
+products/         one page per product: smart-switches, smart-door-locks, smart-panels
 css/styles.css    design tokens + all styles (tokens → base → components → sections → motion → responsive)
 js/main.js        header behaviour, mobile menu, scroll reveals, hero control panel, contact form
-assets/           favicon and future imagery
+assets/           favicon; assets/products/ holds the product photos
 ```
 
 Open `index.html` directly, or serve the folder (`npx serve .`).
 
 ## Design system
-- **Palette:** ivory `#faf8f4`, cream, sand, beige, taupe, a quiet bronze accent `#8f7453`, charcoal `#1f1e1c`. All live as CSS custom properties in `:root`.
-- **Type:** Manrope (light, tight tracking) for UI and headings, with Cormorant Garamond italic for accent words.
+- **Palette:** monochrome — white `#ffffff`, paper `#f6f6f6`, a scale of grays, and black `#111111`. All live as CSS custom properties in `:root`.
+- **Type:** Inter. Headings pair a light weight with a bold accent word (e.g. "nestify **products.**").
 - **Motion:** one easing curve (`--ease`), staggered reveal-on-scroll via `--d`. Everything respects `prefers-reduced-motion`.
 - **Breakpoints:** 1080px (tablet), 860px, 640px (mobile), 380px.
 
 ## Notes
 - The contact form has no backend. It opens the visitor's email app with a pre-filled message to `sales@` (or `support@` for support requests). To collect submissions server-side, point the form at an endpoint in `js/main.js`.
 - Hero and experience visuals are built in HTML/CSS, so no image assets are required. Project photography can go in `assets/` later.
+- Product photos in `assets/products/` were cropped from a design screenshot and are low resolution (~340px wide). Replace them with the original high-resolution files under the same names.
+- The product pages share the home page's header and footer. If you change the nav, update it in all four HTML files.
+- A link to `index.html?product=<slug>#contact` pre-fills the contact form with that product.
