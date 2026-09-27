@@ -3,11 +3,11 @@
 Static, dependency-free redesign of [nestify.ps](https://nestify.ps/).
 
 ```
-index.html        home page (hero, about, products, solutions, experience, process, contact)
+index.html        home page (video hero, about, products, solutions, experience, process, projects, contact)
 products/         one page per product: smart-switches, smart-door-locks, smart-panels
 css/styles.css    design tokens + all styles (tokens → base → components → sections → motion → responsive)
 js/main.js        header behaviour, mobile menu, scroll reveals, hero control panel, contact form
-assets/           favicon; assets/products/ holds the product photos
+assets/           favicon; products/ (product photos), video/ (hero film), projects/ (project photos)
 ```
 
 Open `index.html` directly, or serve the folder (`npx serve .`).
@@ -20,7 +20,8 @@ Open `index.html` directly, or serve the folder (`npx serve .`).
 
 ## Notes
 - The contact form has no backend. It opens the visitor's email app with a pre-filled message to `sales@` (or `support@` for support requests). To collect submissions server-side, point the form at an endpoint in `js/main.js`.
-- Hero and experience visuals are built in HTML/CSS, so no image assets are required. Project photography can go in `assets/` later.
+- **Hero video:** put the house film at `assets/video/hero.mp4` (see `assets/video/README.md`). Until then the hero shows a dark gradient and the pause button stays hidden. The video respects reduced-motion settings and pauses when scrolled out of view.
+- **Projects:** the three projects in `index.html` are samples. Replace their titles, locations, systems and photos with real projects (see `assets/projects/README.md`).
 - Product photos in `assets/products/` were cropped from a design screenshot and are low resolution (~340px wide). Replace them with the original high-resolution files under the same names.
 - The product pages share the home page's header and footer. If you change the nav, update it in all four HTML files.
 - A link to `index.html?product=<slug>#contact` pre-fills the contact form with that product.

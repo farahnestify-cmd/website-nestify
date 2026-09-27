@@ -17,7 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body class="has-video-hero">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- ============ Header ============ -->
@@ -34,7 +34,7 @@
           <li><a href="#products">Products</a></li>
           <li><a href="#solutions">Solutions</a></li>
           <li><a href="#experience">Experience</a></li>
-          <li><a href="#process">Process</a></li>
+          <li><a href="#projects">Projects</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
@@ -54,7 +54,7 @@
           <li><a href="#products">Products</a></li>
           <li><a href="#solutions">Solutions</a></li>
           <li><a href="#experience">Experience</a></li>
-          <li><a href="#process">Process</a></li>
+          <li><a href="#projects">Projects</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
@@ -66,30 +66,38 @@
   </header>
 
   <main id="main">
-    <!-- ============ Hero ============ -->
+    <!-- ============ Hero (video) ============ -->
     <section class="hero" id="top">
-      <div class="hero-glow" aria-hidden="true"></div>
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow reveal">Smart Home &middot; Ramallah &amp; Jerusalem</p>
-          <h1 class="display reveal" style="--d:1">
-            Intelligent living,<br>
-            <em>beautifully</em> simple.
-          </h1>
-          <p class="lead reveal" style="--d:2">
-            Nestify designs, supplies, installs and maintains high-quality smart solutions
-            for residential and commercial projects &mdash; lighting, curtains, climate and
-            security, unified in one effortless system.
-          </p>
-          <div class="hero-actions reveal" style="--d:3">
-            <a class="btn btn-dark" href="#contact">
-              Book a consultation
-              <svg class="btn-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-            <a class="btn btn-ghost" href="#products">Explore products</a>
-          </div>
+      <div class="hero-media" aria-hidden="true">
+        <!-- Drop the house film into assets/video/ (hero.mp4, optional hero.webm and hero-poster.jpg). -->
+        <video class="hero-video" data-hero-video autoplay muted loop playsinline preload="auto">
+          <source src="assets/video/hero.webm" type="video/webm">
+          <source src="assets/video/hero.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="hero-shade" aria-hidden="true"></div>
 
-          <div class="compat reveal" style="--d:4">
+      <div class="container hero-content">
+        <p class="eyebrow reveal">Smart Home &middot; Ramallah &amp; Jerusalem</p>
+        <h1 class="display reveal" style="--d:1">
+          Intelligent living,<br>
+          <em>beautifully</em> simple.
+        </h1>
+        <p class="lead reveal" style="--d:2">
+          Nestify designs, supplies, installs and maintains high-quality smart solutions
+          for residential and commercial projects &mdash; lighting, curtains, climate and
+          security, unified in one effortless system.
+        </p>
+        <div class="hero-actions reveal" style="--d:3">
+          <a class="btn btn-light" href="#contact">
+            Book a consultation
+            <svg class="btn-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn btn-outline-light" href="#projects">View our projects</a>
+        </div>
+
+        <div class="hero-foot reveal" style="--d:4">
+          <div class="compat">
             <span class="compat-label">Works with</span>
             <ul class="compat-list">
               <li>Amazon Alexa</li>
@@ -97,77 +105,13 @@
               <li>Apple HomeKit</li>
             </ul>
           </div>
-        </div>
-
-        <!-- Interactive control panel illustration -->
-        <div class="hero-visual reveal" style="--d:2">
-          <div class="panel" aria-label="Example Nestify control panel">
-            <div class="panel-head">
-              <div>
-                <p class="panel-kicker">Living Room</p>
-                <p class="panel-title">Evening scene</p>
-              </div>
-              <span class="panel-status"><i></i>All systems online</span>
-            </div>
-
-            <div class="panel-climate">
-              <div class="dial" data-dial style="--p:.55">
-                <svg viewBox="0 0 120 120" aria-hidden="true">
-                  <circle class="dial-track" cx="60" cy="60" r="52"/>
-                  <circle class="dial-fill" cx="60" cy="60" r="52" pathLength="100"/>
-                </svg>
-                <div class="dial-value"><span data-temp>22</span><sup>&deg;C</sup></div>
-              </div>
-              <div class="dial-meta">
-                <p class="panel-kicker">Climate</p>
-                <p class="dial-mode">Comfort &middot; Auto</p>
-                <div class="dial-controls">
-                  <button type="button" class="icon-btn" data-temp-step="-1" aria-label="Lower temperature">&minus;</button>
-                  <button type="button" class="icon-btn" data-temp-step="1" aria-label="Raise temperature">+</button>
-                </div>
-              </div>
-            </div>
-
-            <ul class="panel-tiles">
-              <li>
-                <button type="button" class="tile is-on" data-tile aria-pressed="true">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1 2V16h5.2v-.2c0-.8.4-1.5 1-2A6 6 0 0 0 12 3Z"/></svg>
-                  <span class="tile-name">Lighting</span>
-                  <span class="tile-state" data-on="70% warm" data-off="Off">70% warm</span>
-                </button>
-              </li>
-              <li>
-                <button type="button" class="tile is-on" data-tile aria-pressed="true">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18M5 4v16M19 4v16M5 20c2-3 3-8 3-16M19 20c-2-3-3-8-3-16"/></svg>
-                  <span class="tile-name">Curtains</span>
-                  <span class="tile-state" data-on="Open" data-off="Closed">Open</span>
-                </button>
-              </li>
-              <li>
-                <button type="button" class="tile is-on" data-tile aria-pressed="true">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5M12 14.5v2"/></svg>
-                  <span class="tile-name">Front door</span>
-                  <span class="tile-state" data-on="Locked" data-off="Unlocked">Locked</span>
-                </button>
-              </li>
-              <li>
-                <button type="button" class="tile" data-tile aria-pressed="false">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7.5 15 5v14L3 16.5v-9ZM15 9.5l6-2v9l-6-2"/></svg>
-                  <span class="tile-name">Cameras</span>
-                  <span class="tile-state" data-on="Recording" data-off="Standby">Standby</span>
-                </button>
-              </li>
-            </ul>
-
-            <p class="panel-foot">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3ZM5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
-              <span>&ldquo;Good evening&rdquo; &mdash; dims lights, closes curtains, sets 22&deg;</span>
-            </p>
-          </div>
+          <button class="video-toggle" type="button" data-video-toggle aria-pressed="false" aria-label="Pause background video">
+            <svg class="i-pause" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5v10M13 5v10"/></svg>
+            <svg class="i-play" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5.5v9l7.5-4.5L7 5.5Z"/></svg>
+          </button>
         </div>
       </div>
 
-      <a class="scroll-cue" href="#about" aria-label="Scroll to learn more"><span></span></a>
     </section>
 
     <!-- ============ About / Difference ============ -->
@@ -275,12 +219,69 @@
 
         <div class="bento">
           <article class="card card-feature reveal">
-            <div class="card-feature-art" aria-hidden="true">
-              <div class="orbit">
-                <span class="orbit-node n1"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1 2V16h5.2v-.2c0-.8.4-1.5 1-2A6 6 0 0 0 12 3Z"/></svg></span>
-                <span class="orbit-node n2"><svg viewBox="0 0 24 24"><path d="M3 4h18M5 4v16M19 4v16M5 20c2-3 3-8 3-16M19 20c-2-3-3-8-3-16"/></svg></span>
-                <span class="orbit-node n3"><svg viewBox="0 0 24 24"><path d="M10 4a2 2 0 1 1 4 0v10.3a4 4 0 1 1-4 0V4Z"/></svg></span>
-                <span class="orbit-core">N</span>
+            <div class="card-feature-art">
+              <div class="panel" aria-label="Example Nestify control panel">
+                <div class="panel-head">
+                  <div>
+                    <p class="panel-kicker">Living Room</p>
+                    <p class="panel-title">Evening scene</p>
+                  </div>
+                  <span class="panel-status"><i></i>All systems online</span>
+                </div>
+
+                <div class="panel-climate">
+                  <div class="dial" data-dial style="--p:.55">
+                    <svg viewBox="0 0 120 120" aria-hidden="true">
+                      <circle class="dial-track" cx="60" cy="60" r="52"/>
+                      <circle class="dial-fill" cx="60" cy="60" r="52" pathLength="100"/>
+                    </svg>
+                    <div class="dial-value"><span data-temp>22</span><sup>&deg;C</sup></div>
+                  </div>
+                  <div class="dial-meta">
+                    <p class="panel-kicker">Climate</p>
+                    <p class="dial-mode">Comfort &middot; Auto</p>
+                    <div class="dial-controls">
+                      <button type="button" class="icon-btn" data-temp-step="-1" aria-label="Lower temperature">&minus;</button>
+                      <button type="button" class="icon-btn" data-temp-step="1" aria-label="Raise temperature">+</button>
+                    </div>
+                  </div>
+                </div>
+
+                <ul class="panel-tiles">
+                  <li>
+                    <button type="button" class="tile is-on" data-tile aria-pressed="true">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1 2V16h5.2v-.2c0-.8.4-1.5 1-2A6 6 0 0 0 12 3Z"/></svg>
+                      <span class="tile-name">Lighting</span>
+                      <span class="tile-state" data-on="70% warm" data-off="Off">70% warm</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="tile is-on" data-tile aria-pressed="true">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18M5 4v16M19 4v16M5 20c2-3 3-8 3-16M19 20c-2-3-3-8-3-16"/></svg>
+                      <span class="tile-name">Curtains</span>
+                      <span class="tile-state" data-on="Open" data-off="Closed">Open</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="tile is-on" data-tile aria-pressed="true">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5M12 14.5v2"/></svg>
+                      <span class="tile-name">Front door</span>
+                      <span class="tile-state" data-on="Locked" data-off="Unlocked">Locked</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="tile" data-tile aria-pressed="false">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7.5 15 5v14L3 16.5v-9ZM15 9.5l6-2v9l-6-2"/></svg>
+                      <span class="tile-name">Cameras</span>
+                      <span class="tile-state" data-on="Recording" data-off="Standby">Standby</span>
+                    </button>
+                  </li>
+                </ul>
+
+                <p class="panel-foot">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3ZM5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+                  <span>&ldquo;Good evening&rdquo; &mdash; dims lights, closes curtains, sets 22&deg;</span>
+                </p>
               </div>
             </div>
             <div class="card-body">
@@ -425,6 +426,60 @@
       </div>
     </section>
 
+    <!-- ============ Projects ============ -->
+    <!-- Sample entries: replace titles, locations, systems and photos with real Nestify projects. -->
+    <section class="section projects" id="projects">
+      <div class="container">
+        <header class="projects-head">
+          <div>
+            <h2 class="h2 reveal">nestify <em>projects.</em></h2>
+            <p class="products-sub reveal" style="--d:1">homes and spaces we&rsquo;ve brought to life.</p>
+          </div>
+          <div class="filter reveal" style="--d:2" role="group" aria-label="Filter projects">
+            <button type="button" class="filter-btn is-active" data-filter="all" aria-pressed="true">All</button>
+            <button type="button" class="filter-btn" data-filter="residential" aria-pressed="false">Residential</button>
+            <button type="button" class="filter-btn" data-filter="commercial" aria-pressed="false">Commercial</button>
+          </div>
+        </header>
+
+        <ul class="project-grid" data-projects>
+          <li class="project project-lg reveal" style="--d:1" data-category="residential">
+            <article>
+              <!-- Replace the placeholder with: <img src="assets/projects/….jpg" alt="…" loading="lazy"> -->
+              <div class="project-media project-media--placeholder"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 22 24 7l18 15v19a1 1 0 0 1-1 1H30V30H18v12H7a1 1 0 0 1-1-1V22Z"/></svg></div>
+              <div class="project-info">
+                <p class="project-meta"><span>Residential</span><span>Ramallah</span></p>
+                <h3>Private villa</h3>
+                <ul class="project-tags"><li>Lighting</li><li>Curtains</li><li>Climate</li><li>Security</li></ul>
+              </div>
+            </article>
+          </li>
+          <li class="project reveal" style="--d:2" data-category="residential">
+            <article>
+              <!-- Replace the placeholder with: <img src="assets/projects/….jpg" alt="…" loading="lazy"> -->
+              <div class="project-media project-media--placeholder"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 22 24 7l18 15v19a1 1 0 0 1-1 1H30V30H18v12H7a1 1 0 0 1-1-1V22Z"/></svg></div>
+              <div class="project-info">
+                <p class="project-meta"><span>Residential</span><span>Jerusalem</span></p>
+                <h3>Modern apartment</h3>
+                <ul class="project-tags"><li>Smart switches</li><li>Smart panel</li><li>Door lock</li></ul>
+              </div>
+            </article>
+          </li>
+          <li class="project reveal" style="--d:3" data-category="commercial">
+            <article>
+              <!-- Replace the placeholder with: <img src="assets/projects/….jpg" alt="…" loading="lazy"> -->
+              <div class="project-media project-media--placeholder"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 22 24 7l18 15v19a1 1 0 0 1-1 1H30V30H18v12H7a1 1 0 0 1-1-1V22Z"/></svg></div>
+              <div class="project-info">
+                <p class="project-meta"><span>Commercial</span><span>Ramallah</span></p>
+                <h3>Office space</h3>
+                <ul class="project-tags"><li>Lighting</li><li>Climate</li><li>Access control</li></ul>
+              </div>
+            </article>
+          </li>
+        </ul>
+      </div>
+    </section>
+
     <!-- ============ CTA band ============ -->
     <section class="cta-band">
       <div class="container cta-inner reveal">
@@ -526,6 +581,7 @@
           <li><a href="#solutions">Solutions</a></li>
           <li><a href="#experience">Experience</a></li>
           <li><a href="#process">Process</a></li>
+          <li><a href="#projects">Projects</a></li>
         </ul>
       </div>
 
