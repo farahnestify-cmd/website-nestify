@@ -174,53 +174,6 @@
     note.textContent = "Thank you — your email app should open with your request ready to send.";
   });
 
-  /* Hero video — fades in once playable; pause control; respects reduced motion */
-  const video = $("[data-hero-video]");
-  const videoToggle = $("[data-video-toggle]");
-  if (video) {
-    let userPaused = reduceMotion;
-
-    const setPausedUI = (paused) => {
-      if (!videoToggle) return;
-      videoToggle.setAttribute("aria-pressed", String(paused));
-      videoToggle.setAttribute("aria-label", paused ? "Play background video" : "Pause background video");
-    };
-    const play = () => {
-      const attempt = video.play();
-      if (attempt) attempt.catch(() => setPausedUI(true));
-    };
-
-    video.addEventListener("playing", () => { video.classList.add("is-ready"); setPausedUI(false); });
-    video.addEventListener("loadeddata", () => video.classList.add("is-ready"));
-
-    // No playable source (e.g. file not added yet): keep the fallback background, hide the control
-    const lastSource = $("source:last-of-type", video);
-    const noVideo = () => { if (videoToggle) videoToggle.hidden = true; };
-    if (lastSource) lastSource.addEventListener("error", noVideo);
-    if (video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) noVideo();
-
-    if (reduceMotion) {
-      video.removeAttribute("autoplay");
-      video.pause();
-      setPausedUI(true);
-    }
-
-    if (videoToggle) {
-      videoToggle.addEventListener("click", () => {
-        userPaused = !video.paused;
-        if (userPaused) { video.pause(); setPausedUI(true); } else { play(); }
-      });
-    }
-
-    // Save battery: pause while the hero is off-screen
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(([entry]) => {
-        if (!entry.isIntersecting) video.pause();
-        else if (!userPaused) play();
-      }).observe(video);
-    }
-  }
-
   /* Projects filter */
   const projectList = $("[data-projects]");
   const filterBtns = $$("[data-filter]");
