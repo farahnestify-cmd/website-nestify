@@ -133,7 +133,8 @@
       });
     });
 
-    /* Intro: the ring fills to 60% while the degrees count up, then each tile is pressed in turn */
+    /* Intro: the ring fills to 60% while the degrees count up, then the tiles marked data-intro are pressed in turn */
+    const introTiles = tiles.filter((tile) => "intro" in tile.dataset);
     const playIntro = () => {
       const DIAL_MS = 1600;
       const start = performance.now();
@@ -150,7 +151,7 @@
       };
       requestAnimationFrame(step);
 
-      tiles.forEach((tile, i) => {
+      introTiles.forEach((tile, i) => {
         setTimeout(() => {
           if (tile.dataset.touched) return;
           tile.classList.add("is-pressing");
@@ -161,7 +162,7 @@
     };
 
     if (reduceMotion) {
-      tiles.forEach((tile) => setTile(tile, true));
+      introTiles.forEach((tile) => setTile(tile, true));
       renderTemp();
     } else {
       temp = MIN;
