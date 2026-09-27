@@ -577,6 +577,7 @@ h3 {
   stroke-dasharray: calc(var(--p) * 100) 100;
   transition: stroke-dasharray var(--t-slow) var(--ease);
 }
+.dial.is-intro .dial-fill { transition: none; } /* driven frame by frame during the intro */
 .dial-value {
   position: absolute;
   inset: 0;
@@ -619,6 +620,7 @@ h3 {
 }
 .tile:hover { border-color: rgba(255, 255, 255, 0.16); }
 .tile:active { transform: scale(0.97); }
+.tile.is-pressing { animation: tile-press 0.45s var(--ease); }
 .tile svg {
   width: 22px;
   height: 22px;
@@ -1433,6 +1435,11 @@ h3 {
 @keyframes float {
   0%, 100% { translate: 0 0; }
   50% { translate: 0 -10px; }
+}
+@keyframes tile-press {
+  0% { transform: scale(1); }
+  35% { transform: scale(0.93); }
+  100% { transform: scale(1); }
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes pulse {

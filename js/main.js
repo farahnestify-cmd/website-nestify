@@ -95,34 +95,89 @@
   }
 
   /* Hero control panel — tiles and thermostat */
-  $$("[data-tile]").forEach((tile) => {
+  const tiles = $$("[data-tile]");
+
+  const setTile = (tile, on) => {
+    tile.classList.toggle("is-on", on);
+    tile.setAttribute("aria-pressed", String(on));
+    const state = $(".tile-state", tile);
+    state.textContent = on ? state.dataset.on : state.dataset.off;
+  };
+
+  tiles.forEach((tile) => {
     tile.addEventListener("click", () => {
-      const on = !tile.classList.contains("is-on");
-      tile.classList.toggle("is-on", on);
-      tile.setAttribute("aria-pressed", String(on));
-      const state = $(".tile-state", tile);
-      state.textContent = on ? state.dataset.on : state.dataset.off;
+      tile.dataset.touched = "true"; // the intro leaves tiles the visitor has used alone
+      setTile(tile, !tile.classList.contains("is-on"));
     });
   });
 
   const dial = $("[data-dial]");
   const tempEl = $("[data-temp]");
-  if (dial && tempEl) {
-    const MIN = 16;
-    const MAX = 30;
-    let temp = Number(tempEl.textContent);
+  const panel = $(".panel");
+
+  if (dial && tempEl && panel) {
+    const MIN = 10;
+    const MAX = 30; // 22 °C sits at 60% of the ring
+    const target = Number(tempEl.textContent);
+    let temp = target;
 
     const renderTemp = () => {
-      tempEl.textContent = temp;
+      tempEl.textContent = Math.round(temp);
       dial.style.setProperty("--p", ((temp - MIN) / (MAX - MIN)).toFixed(3));
     };
     $$("[data-temp-step]").forEach((btn) => {
       btn.addEventListener("click", () => {
-        temp = Math.min(MAX, Math.max(MIN, temp + Number(btn.dataset.tempStep)));
+        panel.dataset.touched = "true";
+        temp = Math.min(MAX, Math.max(MIN, Math.round(temp) + Number(btn.dataset.tempStep)));
         renderTemp();
       });
     });
-    renderTemp();
+
+    /* Intro: the ring fills to 60% while the degrees count up, then each tile is pressed in turn */
+    const playIntro = () => {
+      const DIAL_MS = 1600;
+      const start = performance.now();
+      dial.classList.add("is-intro");
+
+      const step = (now) => {
+        if (panel.dataset.touched) { dial.classList.remove("is-intro"); return; }
+        const t = Math.min(1, (now - start) / DIAL_MS);
+        const eased = 1 - Math.pow(1 - t, 3);
+        temp = MIN + (target - MIN) * eased;
+        renderTemp();
+        if (t < 1) requestAnimationFrame(step);
+        else { temp = target; renderTemp(); dial.classList.remove("is-intro"); }
+      };
+      requestAnimationFrame(step);
+
+      tiles.forEach((tile, i) => {
+        setTimeout(() => {
+          if (tile.dataset.touched) return;
+          tile.classList.add("is-pressing");
+          setTile(tile, true);
+          tile.addEventListener("animationend", () => tile.classList.remove("is-pressing"), { once: true });
+        }, DIAL_MS * 0.55 + i * 380);
+      });
+    };
+
+    if (reduceMotion) {
+      tiles.forEach((tile) => setTile(tile, true));
+      renderTemp();
+    } else {
+      temp = MIN;
+      renderTemp();
+      // Start once the panel is on screen and its fade-in has begun
+      if ("IntersectionObserver" in window) {
+        const introIO = new IntersectionObserver(([entry]) => {
+          if (!entry.isIntersecting) return;
+          introIO.disconnect();
+          setTimeout(playIntro, 500);
+        }, { threshold: 0.4 });
+        introIO.observe(panel);
+      } else {
+        playIntro();
+      }
+    }
   }
 
   /* Contact form — composes an email to the sales team */
